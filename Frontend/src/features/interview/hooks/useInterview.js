@@ -21,13 +21,14 @@ export const useInterview = () => {
         try {
             response = await generateInterviewReport({ jobDescription, selfDescription, resumeFile })
             setReport(response.interviewReport)
+            return { success: true, data: response.interviewReport }
         } catch (error) {
             console.log(error)
+            const errorMsg = error.response?.data?.message || error.message || "Failed to generate interview strategy"
+            return { success: false, error: errorMsg }
         } finally {
             setLoading(false)
         }
-
-        return response?.interviewReport
     }
 
     const getReportById = async (interviewId) => {

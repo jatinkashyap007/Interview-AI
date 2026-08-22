@@ -74,9 +74,12 @@ const Home = () => {
             return
         }
 
-        const data = await generateReport({ jobDescription, selfDescription, resumeFile: selectedFile })
-        if (data?._id) {
-            navigate(`/interview/${data._id}`)
+        const res = await generateReport({ jobDescription, selfDescription, resumeFile: selectedFile })
+        const reportData = res?.data || res
+        if (reportData?._id) {
+            navigate(`/interview/${reportData._id}`)
+        } else if (res?.error) {
+            setErrorMessage(res.error)
         }
     }
 
