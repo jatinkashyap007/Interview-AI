@@ -35,4 +35,12 @@ app.use("/api/interview", interviewRouter)
 
 
 
+app.get("/healthz", (req, res) => {
+    res.status(200).json({ status: "ok" })
+})
+
+app.get("/", (req, res) => {
+    res.status(200).json({ message: "Interview-AI Backend API Server is Running" })
+})
+
 module.exports = app
