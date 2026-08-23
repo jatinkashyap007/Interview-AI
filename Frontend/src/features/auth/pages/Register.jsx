@@ -1,59 +1,98 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router'
+import "../auth.form.scss"
 import { useAuth } from '../hooks/useAuth'
+import AuthBrandPanel from '../components/AuthBrandPanel'
 
 const Register = () => {
-
     const navigate = useNavigate()
-    const [ username, setUsername ] = useState("")
-    const [ email, setEmail ] = useState("")
-    const [ password, setPassword ] = useState("")
+    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [showPassword, setShowPassword] = useState(false)
 
-    const {loading,handleRegister} = useAuth()
-    
+    const { loading, handleRegister } = useAuth()
+
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await handleRegister({username,email,password})
+        await handleRegister({ username, email, password })
         navigate("/")
     }
 
-    if(loading){
-        return (<main><h1>Loading.......</h1></main>)
-    }
-
     return (
-        <main>
-            <div className="form-container">
-                <h1>Register</h1>
+        <div className="auth-page">
+            <div className="shell">
+                <AuthBrandPanel />
 
-                <form onSubmit={handleSubmit}>
+                <div className="form-panel">
+                    <h2>Create an account</h2>
+                    <p className="sub">Start your AI mock interview practice today.</p>
 
-                    <div className="input-group">
-                        <label htmlFor="username">Username</label>
-                        <input
-                            onChange={(e) => { setUsername(e.target.value) }}
-                            type="text" id="username" name='username' placeholder='Enter username' />
-                    </div>
-                    <div className="input-group">
-                        <label htmlFor="email">Email</label>
-                        <input
-                            onChange={(e) => { setEmail(e.target.value) }}
-                            type="email" id="email" name='email' placeholder='Enter email address' />
-                    </div>
-                    <div className="input-group">
-                        <label htmlFor="password">Password</label>
-                        <input
-                            onChange={(e) => { setPassword(e.target.value) }}
-                            type="password" id="password" name='password' placeholder='Enter password' />
-                    </div>
+                    <form onSubmit={handleSubmit}>
+                        <div className="field">
+                            <label htmlFor="username">Username</label>
+                            <div className="input-wrap">
+                                <input
+                                    id="username"
+                                    type="text"
+                                    placeholder="johndoe"
+                                    autoComplete="username"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
 
-                    <button className='button primary-button' >Register</button>
+                        <div className="field">
+                            <label htmlFor="email">Email</label>
+                            <div className="input-wrap">
+                                <input
+                                    id="email"
+                                    type="email"
+                                    placeholder="name@company.com"
+                                    autoComplete="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
 
-                </form>
+                        <div className="field">
+                            <label htmlFor="password">Password</label>
+                            <div className="input-wrap">
+                                <input
+                                    id="password"
+                                    type={showPassword ? 'text' : 'password'}
+                                    placeholder="Create a strong password"
+                                    autoComplete="new-password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
+                                <button
+                                    type="button"
+                                    className="toggle-pass"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                >
+                                    {showPassword ? 'Hide' : 'Show'}
+                                </button>
+                            </div>
+                        </div>
 
-                <p>Already have an account? <Link to={"/login"} >Login</Link> </p>
+                        <button className="btn-login" type="submit" disabled={loading}>
+                            {loading ? 'Creating account...' : 'Create account'}
+                        </button>
+                    </form>
+
+                    <div className="divider">or</div>
+                    <p className="register-line">
+                        Already have an account? <Link to="/login">Log in</Link>
+                    </p>
+                </div>
             </div>
-        </main>
+        </div>
     )
 }
 
