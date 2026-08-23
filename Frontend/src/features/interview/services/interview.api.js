@@ -65,3 +65,15 @@ export const generateResumePdf = async ({ interviewReportId }) => {
 
     return response.data
 }
+
+/**
+ * @description Service to grade/evaluate user's answer for a question.
+ */
+export const evaluateAnswer = async ({ question, userAnswer, jobDescription }) => {
+    const response = await api.post("/api/interview/evaluate-answer", {
+        question,
+        userAnswer,
+        jobDescription
+    })
+    return response.data
+}

@@ -116,4 +116,32 @@ async function generateResumePdf({ resume, selfDescription, jobDescription }) {
 
 }
 
-module.exports = { generateInterviewReport, generateResumePdf }
+const answerEvaluationSchema = z.object({
+    score: z.number().describe("Score between 0 and 10 for the user's answer"),
+    strengths: z.string().describe("What the candidate explained well in their response"),
+    missingPoints: z.array(z.string()).describe("Key technical points or concepts missing from the candidate's answer"),
+    improvedAnswer: z.string().describe("An exemplary response following best industry practices and STAR method")
+})
+
+async function evaluateUserAnswer({ question, userAnswer, jobDescription }) {
+    const prompt = `Evaluate the following candidate's answer for an interview question:
+                        Target Job Description: ${jobDescription || "N/A"}
+                        Interview Question: ${question}
+                        Candidate's Answer: ${userAnswer}
+
+                        Provide a detailed evaluation with a numeric score (0-10), strengths, missing key technical points, and an improved model answer.
+                    `
+
+    const response = await ai.models.generateContent({
+        model: "gemini-3-flash-preview",
+        contents: prompt,
+        config: {
+            responseMimeType: "application/json",
+            responseSchema: zodToJsonSchema(answerEvaluationSchema),
+        }
+    })
+
+    return JSON.parse(response.text)
+}
+
+module.exports = { generateInterviewReport, generateResumePdf, evaluateUserAnswer }

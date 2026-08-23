@@ -12,8 +12,33 @@ const NAV_ITEMS = [
 ]
 
 // ── Sub-components ────────────────────────────────────────────────────────────
-const QuestionCard = ({ item, index }) => {
+// ── Sub-components ────────────────────────────────────────────────────────────
+const QuestionCard = ({ item, index, jobDescription }) => {
     const [ open, setOpen ] = useState(false)
+    const [ userPracticeAnswer, setUserPracticeAnswer ] = useState("")
+    const [ isGrading, setIsGrading ] = useState(false)
+    const [ evaluation, setEvaluation ] = useState(null)
+    const [ evalError, setEvalError ] = useState("")
+    const { handleEvaluateAnswer } = useInterview()
+
+    const onGradeSubmit = async (e) => {
+        e.preventDefault()
+        if (!userPracticeAnswer.trim()) return
+        setIsGrading(true)
+        setEvalError("")
+        const res = await handleEvaluateAnswer({
+            question: item.question,
+            userAnswer: userPracticeAnswer,
+            jobDescription
+        })
+        setIsGrading(false)
+        if (res.success) {
+            setEvaluation(res.evaluation)
+        } else {
+            setEvalError(res.error)
+        }
+    }
+
     return (
         <div className='q-card'>
             <div className='q-card__header' onClick={() => setOpen(o => !o)}>
@@ -32,6 +57,54 @@ const QuestionCard = ({ item, index }) => {
                     <div className='q-card__section'>
                         <span className='q-card__tag q-card__tag--answer'>Model Answer</span>
                         <p>{item.answer}</p>
+                    </div>
+
+                    {/* Interactive Practice & AI Grading Section */}
+                    <div className='q-card__practice'>
+                        <span className='q-card__tag q-card__tag--practice'>Practice & Grade Answer</span>
+                        <textarea
+                            value={userPracticeAnswer}
+                            onChange={(e) => setUserPracticeAnswer(e.target.value)}
+                            placeholder="Type your answer here to get AI feedback and a score out of 10..."
+                            rows={3}
+                            className='practice-textarea'
+                        />
+                        <button
+                            type="button"
+                            onClick={onGradeSubmit}
+                            disabled={isGrading || !userPracticeAnswer.trim()}
+                            className='grade-submit-btn'
+                        >
+                            {isGrading ? 'AI is Evaluating...' : 'Evaluate My Answer'}
+                        </button>
+
+                        {evalError && <p className='eval-error'>{evalError}</p>}
+
+                        {evaluation && (
+                            <div className='eval-result-card'>
+                                <div className='eval-header'>
+                                    <span className={`score-badge ${evaluation.score >= 8 ? 'score--high' : evaluation.score >= 5 ? 'score--mid' : 'score--low'}`}>
+                                        Score: {evaluation.score} / 10
+                                    </span>
+                                </div>
+                                <div className='eval-section'>
+                                    <strong>🟢 Strengths:</strong>
+                                    <p>{evaluation.strengths}</p>
+                                </div>
+                                {evaluation.missingPoints?.length > 0 && (
+                                    <div className='eval-section'>
+                                        <strong>🔴 Missing Key Concepts:</strong>
+                                        <ul>
+                                            {evaluation.missingPoints.map((pt, i) => <li key={i}>{pt}</li>)}
+                                        </ul>
+                                    </div>
+                                )}
+                                <div className='eval-section'>
+                                    <strong>💡 STAR Method Improvement:</strong>
+                                    <p>{evaluation.improvedAnswer}</p>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             )}
@@ -122,7 +195,7 @@ const Interview = () => {
                             </div>
                             <div className='q-list'>
                                 {report.technicalQuestions.map((q, i) => (
-                                    <QuestionCard key={i} item={q} index={i} />
+                                    <QuestionCard key={i} item={q} index={i} jobDescription={report.jobDescription} />
                                 ))}
                             </div>
                         </section>
@@ -136,7 +209,7 @@ const Interview = () => {
                             </div>
                             <div className='q-list'>
                                 {report.behavioralQuestions.map((q, i) => (
-                                    <QuestionCard key={i} item={q} index={i} />
+                                    <QuestionCard key={i} item={q} index={i} jobDescription={report.jobDescription} />
                                 ))}
                             </div>
                         </section>

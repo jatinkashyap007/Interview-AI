@@ -1,4 +1,4 @@
-import { getAllInterviewReports, generateInterviewReport, getInterviewReportById, generateResumePdf } from "../services/interview.api"
+import { getAllInterviewReports, generateInterviewReport, getInterviewReportById, generateResumePdf, evaluateAnswer } from "../services/interview.api"
 import { useContext, useEffect } from "react"
 import { InterviewContext } from "../interview.context"
 import { useParams } from "react-router"
@@ -28,6 +28,16 @@ export const useInterview = () => {
             return { success: false, error: errorMsg }
         } finally {
             setLoading(false)
+        }
+    }
+
+    const handleEvaluateAnswer = async ({ question, userAnswer, jobDescription }) => {
+        try {
+            const response = await evaluateAnswer({ question, userAnswer, jobDescription })
+            return { success: true, evaluation: response.evaluation }
+        } catch (error) {
+            console.log(error)
+            return { success: false, error: error.response?.data?.message || error.message || "Failed to evaluate answer" }
         }
     }
 
@@ -87,6 +97,6 @@ export const useInterview = () => {
         }
     }, [ interviewId ])
 
-    return { loading, report, reports, generateReport, getReportById, getReports, getResumePdf }
+    return { loading, report, reports, generateReport, getReportById, getReports, getResumePdf, handleEvaluateAnswer }
 
 }
