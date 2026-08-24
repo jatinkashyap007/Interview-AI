@@ -61,18 +61,17 @@ const Navbar = () => {
                         New Plan
                     </Link>
                     <Link
+                        to="/history"
+                        className={`nav-link ${location.pathname === '/history' ? 'nav-link--active' : ''}`}
+                    >
+                        My History
+                    </Link>
+                    <Link
                         to="/dashboard"
                         className={`nav-link ${location.pathname === '/dashboard' ? 'nav-link--active' : ''}`}
                     >
                         Dashboard
                     </Link>
-                    <button
-                        type="button"
-                        onClick={scrollToHistory}
-                        className="nav-link nav-link--button"
-                    >
-                        My History
-                    </button>
                     {location.pathname.startsWith('/interview') && (
                         <span className="nav-link nav-link--active">
                             Active Session
@@ -102,6 +101,15 @@ const Navbar = () => {
                             </div>
                             <div className="dropdown-menu-links">
                                 <Link
+                                    to="/history"
+                                    className="dropdown-item"
+                                    style={{ textDecoration: 'none' }}
+                                    onClick={() => setDropdownOpen(false)}
+                                >
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
+                                    My History & Plans
+                                </Link>
+                                <Link
                                     to="/dashboard"
                                     className="dropdown-item"
                                     style={{ textDecoration: 'none' }}
@@ -120,17 +128,6 @@ const Navbar = () => {
                                 >
                                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                                     Profile Info
-                                </button>
-                                <button
-                                    type="button"
-                                    className="dropdown-item"
-                                    onClick={() => {
-                                        setDropdownOpen(false)
-                                        scrollToHistory()
-                                    }}
-                                >
-                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
-                                    My History
                                 </button>
                             </div>
                             <button type="button" className="logout-btn" onClick={onLogout}>
@@ -155,19 +152,12 @@ const Navbar = () => {
                     <Link to="/" className="mobile-link" onClick={() => setMobileMenuOpen(false)}>
                         New Plan
                     </Link>
+                    <Link to="/history" className="mobile-link" onClick={() => setMobileMenuOpen(false)}>
+                        My History
+                    </Link>
                     <Link to="/dashboard" className="mobile-link" onClick={() => setMobileMenuOpen(false)}>
                         Dashboard
                     </Link>
-                    <button
-                        type="button"
-                        className="mobile-link mobile-link--button"
-                        onClick={() => {
-                            setMobileMenuOpen(false)
-                            scrollToHistory()
-                        }}
-                    >
-                        My History
-                    </button>
                 </div>
             )}
         </header>

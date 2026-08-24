@@ -31,15 +31,24 @@ interviewRouter.get("/", authMiddleware.authUser, interviewController.getAllInte
 
 
 /**
- * @route GET /api/interview/resume/pdf
+ * @route POST /api/interview/resume/pdf/:interviewReportId
  * @description generate resume pdf on the basis of user self description, resume content and job description.
  * @access private
  */
+interviewRouter.post("/resume/pdf/:interviewReportId", authMiddleware.authUser, interviewController.generateResumePdfController)
+
 /**
  * @route POST /api/interview/evaluate-answer
  * @description evaluate/grade user's typed or spoken answer for a question
  * @access private
  */
 interviewRouter.post("/evaluate-answer", authMiddleware.authUser, interviewController.evaluateAnswerController)
+
+/**
+ * @route DELETE /api/interview/report/:interviewId
+ * @description delete an interview report by ID.
+ * @access private
+ */
+interviewRouter.delete("/report/:interviewId", authMiddleware.authUser, interviewController.deleteInterviewReportController)
 
 module.exports = interviewRouter

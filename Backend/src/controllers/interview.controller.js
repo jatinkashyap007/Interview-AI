@@ -153,4 +153,41 @@ async function evaluateAnswerController(req, res) {
     }
 }
 
-module.exports = { generateInterViewReportController, getInterviewReportByIdController, getAllInterviewReportsController, generateResumePdfController, evaluateAnswerController }
+/**
+ * @description Controller to delete an interview report by ID.
+ */
+async function deleteInterviewReportController(req, res) {
+    try {
+        const { interviewId } = req.params
+
+        const deletedReport = await interviewReportModel.findOneAndDelete({
+            _id: interviewId,
+            user: req.user.id
+        })
+
+        if (!deletedReport) {
+            return res.status(404).json({
+                message: "Interview report not found or unauthorized to delete."
+            })
+        }
+
+        res.status(200).json({
+            message: "Interview report deleted successfully.",
+            interviewId
+        })
+    } catch (err) {
+        console.error("Error in deleteInterviewReportController:", err)
+        res.status(500).json({
+            message: err.message || "Failed to delete interview report"
+        })
+    }
+}
+
+module.exports = { 
+    generateInterViewReportController, 
+    getInterviewReportByIdController, 
+    getAllInterviewReportsController, 
+    generateResumePdfController, 
+    evaluateAnswerController,
+    deleteInterviewReportController
+}

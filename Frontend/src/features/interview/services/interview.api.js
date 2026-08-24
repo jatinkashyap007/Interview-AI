@@ -77,3 +77,11 @@ export const evaluateAnswer = async ({ question, userAnswer, jobDescription }) =
     })
     return response.data
 }
+
+/**
+ * @description Service to delete an interview report by ID.
+ */
+export const deleteInterviewReportById = async (interviewId) => {
+    const response = await api.delete(`/api/interview/report/${interviewId}`)
+    return response.data
+}

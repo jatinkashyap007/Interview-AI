@@ -1,4 +1,4 @@
-import { getAllInterviewReports, generateInterviewReport, getInterviewReportById, generateResumePdf, evaluateAnswer } from "../services/interview.api"
+import { getAllInterviewReports, generateInterviewReport, getInterviewReportById, generateResumePdf, evaluateAnswer, deleteInterviewReportById } from "../services/interview.api"
 import { useContext, useEffect } from "react"
 import { InterviewContext } from "../interview.context"
 import { useParams } from "react-router"
@@ -38,6 +38,17 @@ export const useInterview = () => {
         } catch (error) {
             console.log(error)
             return { success: false, error: error.response?.data?.message || error.message || "Failed to evaluate answer" }
+        }
+    }
+
+    const deleteReport = async (reportId) => {
+        try {
+            await deleteInterviewReportById(reportId)
+            setReports((prev) => prev.filter((r) => r._id !== reportId))
+            return { success: true }
+        } catch (error) {
+            console.log(error)
+            return { success: false, error: error.response?.data?.message || error.message || "Failed to delete report" }
         }
     }
 
@@ -97,6 +108,6 @@ export const useInterview = () => {
         }
     }, [ interviewId ])
 
-    return { loading, report, reports, generateReport, getReportById, getReports, getResumePdf, handleEvaluateAnswer }
+    return { loading, report, reports, generateReport, getReportById, getReports, getResumePdf, handleEvaluateAnswer, deleteReport }
 
 }

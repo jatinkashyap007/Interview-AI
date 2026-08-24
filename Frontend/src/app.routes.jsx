@@ -5,6 +5,7 @@ import Protected from "./features/auth/components/Protected";
 import Home from "./features/interview/pages/Home";
 import Interview from "./features/interview/pages/Interview";
 import Dashboard from "./features/dashboard/pages/Dashboard";
+import History from "./features/history/pages/History";
 
 import MainLayout from "./components/MainLayout";
 
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
     {
         path: "/dashboard",
         element: <Protected><MainLayout><Dashboard /></MainLayout></Protected>
+    },
+    {
+        path: "/history",
+        element: <Protected><MainLayout><History /></MainLayout></Protected>
     },
     {
         path: "/interview/:interviewId",
