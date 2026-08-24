@@ -1,7 +1,9 @@
 import React, { useState, useRef } from 'react'
-import "../style/home.scss"
+import '../style/home.scss'
 import { useInterview } from '../hooks/useInterview.js'
 import { useNavigate } from 'react-router'
+import toast from 'react-hot-toast'
+import { HomeSkeleton } from '../../../components/SkeletonLoader'
 
 const Home = () => {
 
@@ -27,6 +29,7 @@ const Home = () => {
         if (file) {
             setSelectedFile(file)
             setErrorMessage("")
+            toast.success(`Selected file: ${file.name}`)
         }
     }
 
@@ -50,6 +53,7 @@ const Home = () => {
         if (file) {
             setSelectedFile(file)
             setErrorMessage("")
+            toast.success(`Uploaded file: ${file.name}`)
         }
     }
 
@@ -65,30 +69,33 @@ const Home = () => {
     const handleGenerateReport = async () => {
         setErrorMessage("")
         if (!jobDescription.trim()) {
-            setErrorMessage("Please enter a target job description.")
+            const err = "Please enter a target job description."
+            setErrorMessage(err)
+            toast.error(err)
             return
         }
 
         if (!selectedFile && !selfDescription.trim()) {
-            setErrorMessage("Please either upload a resume file or enter a quick self-description.")
+            const err = "Please either upload a resume file or enter a quick self-description."
+            setErrorMessage(err)
+            toast.error(err)
             return
         }
 
+        toast.loading("Generating your AI interview strategy...", { id: "generate-report" })
         const res = await generateReport({ jobDescription, selfDescription, resumeFile: selectedFile })
         const reportData = res?.data || res
         if (reportData?._id) {
+            toast.success("Interview plan generated successfully!", { id: "generate-report" })
             navigate(`/interview/${reportData._id}`)
         } else if (res?.error) {
+            toast.error(res.error, { id: "generate-report" })
             setErrorMessage(res.error)
         }
     }
 
     if (loading) {
-        return (
-            <main className='loading-screen'>
-                <h1>Loading your interview plan...</h1>
-            </main>
-        )
+        return <HomeSkeleton />
     }
 
     return (

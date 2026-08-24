@@ -1,0 +1,117 @@
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #161b22 0%,
+    #1f2733 50%,
+    #161b22 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite ease-in-out;
+  border-radius: 0.5rem;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Home / Card Skeleton */
+.skeleton-home-container {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  .skeleton-header {
+    height: 48px;
+    width: 60%;
+    margin: 0 auto;
+  }
+
+  .skeleton-sub {
+    height: 20px;
+    width: 40%;
+    margin: 0 auto;
+  }
+
+  .skeleton-card {
+    height: 480px;
+    width: 100%;
+    border-radius: 1rem;
+  }
+}
+
+/* Interview Plan Page Skeleton */
+.skeleton-interview-layout {
+  max-width: 1280px;
+  margin: 1.5rem auto;
+  padding: 1.5rem;
+  display: flex;
+  gap: 1.5rem;
+
+  .skeleton-nav-col {
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex-shrink: 0;
+
+    .skeleton-nav-item {
+      height: 42px;
+      width: 100%;
+    }
+  }
+
+  .skeleton-content-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .skeleton-title {
+      height: 32px;
+      width: 40%;
+    }
+
+    .skeleton-q-card {
+      height: 72px;
+      width: 100%;
+    }
+  }
+
+  .skeleton-sidebar-col {
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    flex-shrink: 0;
+
+    .skeleton-ring {
+      height: 120px;
+      width: 120px;
+      border-radius: 50%;
+      margin: 0 auto;
+    }
+
+    .skeleton-box {
+      height: 100px;
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .skeleton-interview-layout {
+    flex-direction: column;
+
+    .skeleton-nav-col, .skeleton-sidebar-col {
+      width: 100%;
+    }
+  }
+}

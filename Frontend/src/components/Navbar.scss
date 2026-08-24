@@ -3,7 +3,7 @@
   top: 0;
   z-index: 100;
   width: 100%;
-  background: rgba(16, 21, 28, 0.85);
+  background: rgba(16, 21, 28, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -48,6 +48,11 @@
       font-size: 0.9rem;
       font-weight: 500;
       transition: color 0.15s;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      font-family: inherit;
 
       &:hover, &--active {
         color: #FF3B69;
@@ -108,36 +113,80 @@
     .user-dropdown {
       position: absolute;
       right: 0;
-      top: 120%;
-      width: 220px;
+      top: 125%;
+      width: 230px;
       background: #151B24;
       border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 0.8rem;
-      padding: 0.75rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border-radius: 0.85rem;
+      padding: 0.85rem;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
+      gap: 0.75rem;
       z-index: 200;
 
       .dropdown-user-info {
-        padding-bottom: 0.6rem;
+        padding-bottom: 0.65rem;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 
-        .info-name {
-          font-weight: 600;
-          font-size: 0.9rem;
-          color: #F4F6F8;
-          margin: 0;
+        .user-badge-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .info-name {
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: #F4F6F8;
+            margin: 0;
+          }
+
+          .pro-badge {
+            background: rgba(53, 224, 201, 0.15);
+            color: #35E0C9;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.1rem 0.4rem;
+            border-radius: 0.3rem;
+            border: 1px solid rgba(53, 224, 201, 0.3);
+          }
         }
 
         .info-email {
           font-size: 0.75rem;
           color: #6B7684;
-          margin: 2px 0 0 0;
+          margin: 3px 0 0 0;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+        }
+      }
+
+      .dropdown-menu-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+
+        .dropdown-item {
+          display: flex;
+          align-items: center;
+          gap: 0.6rem;
+          width: 100%;
+          background: none;
+          border: none;
+          padding: 0.5rem 0.6rem;
+          border-radius: 0.4rem;
+          color: #B7C0CC;
+          font-size: 0.82rem;
+          cursor: pointer;
+          transition: background 0.15s, color 0.15s;
+          text-align: left;
+          font-family: inherit;
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: #F4F6F8;
+          }
         }
       }
 
@@ -155,6 +204,7 @@
         font-weight: 600;
         cursor: pointer;
         transition: background-color 0.2s, border-color 0.2s;
+        font-family: inherit;
 
         &:hover {
           background: rgba(255, 59, 105, 0.2);
@@ -197,6 +247,12 @@
         text-decoration: none;
         font-size: 0.95rem;
         font-weight: 500;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        text-align: left;
+        font-family: inherit;
 
         &:hover {
           color: #FF3B69;
