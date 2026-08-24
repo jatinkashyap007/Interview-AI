@@ -1,0 +1,435 @@
+.dashboard-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+  color: #F4F6F8;
+  font-family: 'Inter', sans-serif;
+
+  .dashboard-header {
+    margin-bottom: 2rem;
+
+    .header-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0.25rem 0.75rem;
+      background: rgba(255, 59, 105, 0.1);
+      border: 1px solid rgba(255, 59, 105, 0.25);
+      border-radius: 2rem;
+      color: #FF3B69;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    p {
+      color: #B7C0CC;
+      font-size: 0.95rem;
+      margin: 0;
+    }
+  }
+
+  /* Metrics Grid */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+
+    .metric-card {
+      background: #10151C;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 0.85rem;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s;
+
+      &:hover {
+        border-color: rgba(255, 59, 105, 0.3);
+        transform: translateY(-2px);
+      }
+
+      .metric-label {
+        font-size: 0.82rem;
+        color: #6B7684;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-weight: 600;
+      }
+
+      .metric-value-row {
+        display: flex;
+        align-items: baseline;
+        gap: 0.5rem;
+        margin: 0.6rem 0 0.4rem;
+
+        .metric-number {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 2.1rem;
+          font-weight: 700;
+          color: #F4F6F8;
+        }
+
+        .metric-trend {
+          font-size: 0.75rem;
+          font-weight: 600;
+          padding: 0.15rem 0.45rem;
+          border-radius: 0.3rem;
+
+          &.trend--high {
+            background: rgba(53, 224, 201, 0.15);
+            color: #35E0C9;
+          }
+          &.trend--mid {
+            background: rgba(245, 166, 35, 0.15);
+            color: #F5A623;
+          }
+        }
+      }
+
+      .metric-subtitle {
+        font-size: 0.78rem;
+        color: #B7C0CC;
+        margin: 0;
+      }
+    }
+  }
+
+  /* Charts Section */
+  .charts-section {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+
+    .chart-panel {
+      background: #10151C;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 0.85rem;
+      padding: 1.5rem;
+
+      .chart-panel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.25rem;
+
+        h2 {
+          font-family: 'Space Grotesk', sans-serif;
+          font-size: 1.15rem;
+          font-weight: 600;
+          margin: 0;
+        }
+
+        .chart-badge {
+          font-size: 0.72rem;
+          color: #35E0C9;
+          background: rgba(53, 224, 201, 0.1);
+          padding: 0.2rem 0.6rem;
+          border-radius: 2rem;
+          font-weight: 600;
+        }
+      }
+
+      .chart-container {
+        width: 100%;
+        height: 260px;
+      }
+
+      .empty-chart-placeholder {
+        height: 260px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #6B7684;
+        font-size: 0.9rem;
+        text-align: center;
+        gap: 0.5rem;
+      }
+    }
+
+    /* Skill gaps frequency */
+    .skills-breakdown-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-top: 0.5rem;
+
+      .skill-item-bar {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+
+        .skill-item-info {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          font-size: 0.85rem;
+
+          .skill-name {
+            color: #F4F6F8;
+            font-weight: 500;
+          }
+
+          .skill-count {
+            color: #FF3B69;
+            font-size: 0.75rem;
+            font-weight: 600;
+          }
+        }
+
+        .skill-progress-track {
+          width: 100%;
+          height: 6px;
+          background: #151B24;
+          border-radius: 4px;
+          overflow: hidden;
+
+          .skill-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FF3B69, #35E0C9);
+            border-radius: 4px;
+            transition: width 0.4s ease;
+          }
+        }
+      }
+    }
+  }
+
+  /* Filterable Reports Section */
+  .reports-section {
+    background: #10151C;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.85rem;
+    padding: 1.5rem;
+
+    .reports-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+
+      h2 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 0;
+      }
+
+      .filters-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.75rem;
+
+        .search-input {
+          background: #151B24;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 0.5rem;
+          padding: 0.5rem 0.85rem;
+          color: #F4F6F8;
+          font-size: 0.85rem;
+          outline: none;
+          min-width: 200px;
+          font-family: inherit;
+
+          &:focus {
+            border-color: #FF3B69;
+          }
+        }
+
+        .filter-select {
+          background: #151B24;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 0.5rem;
+          padding: 0.5rem 0.85rem;
+          color: #F4F6F8;
+          font-size: 0.85rem;
+          outline: none;
+          font-family: inherit;
+          cursor: pointer;
+
+          &:focus {
+            border-color: #FF3B69;
+          }
+        }
+      }
+    }
+
+    /* Reports Grid */
+    .reports-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
+
+      .report-card {
+        background: #151B24;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 0.75rem;
+        padding: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 1rem;
+        transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+        cursor: pointer;
+
+        &:hover {
+          transform: translateY(-3px);
+          border-color: rgba(255, 59, 105, 0.4);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .report-date {
+            font-size: 0.75rem;
+            color: #6B7684;
+          }
+
+          .score-pill {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 2rem;
+            border: 1px solid;
+
+            &.score--high {
+              color: #35E0C9;
+              background: rgba(53, 224, 201, 0.12);
+              border-color: rgba(53, 224, 201, 0.3);
+            }
+            &.score--mid {
+              color: #F5A623;
+              background: rgba(245, 166, 35, 0.12);
+              border-color: rgba(245, 166, 35, 0.3);
+            }
+            &.score--low {
+              color: #FF3B69;
+              background: rgba(255, 59, 105, 0.12);
+              border-color: rgba(255, 59, 105, 0.3);
+            }
+          }
+        }
+
+        .card-body {
+          .job-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #F4F6F8;
+            margin: 0 0 0.5rem;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
+
+          .card-meta {
+            display: flex;
+            gap: 0.8rem;
+            font-size: 0.75rem;
+            color: #B7C0CC;
+
+            span {
+              display: inline-flex;
+              align-items: center;
+              gap: 4px;
+            }
+          }
+        }
+
+        .card-actions {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-top: 0.75rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
+
+          .view-link {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #FF3B69;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+
+    .no-reports-msg {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #6B7684;
+
+      p {
+        margin: 0 0 1rem;
+        font-size: 0.95rem;
+      }
+
+      .btn-create-plan {
+        display: inline-block;
+        padding: 0.6rem 1.25rem;
+        background: #FF3B69;
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.85rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        transition: opacity 0.2s;
+
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .dashboard-page {
+    .charts-section {
+      grid-template-columns: 1fr;
+    }
+
+    .reports-section {
+      .reports-header {
+        flex-direction: column;
+        align-items: flex-start;
+
+        .filters-row {
+          width: 100%;
+
+          .search-input {
+            flex: 1;
+            min-width: 140px;
+          }
+        }
+      }
+    }
+  }
+}
