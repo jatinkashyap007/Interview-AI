@@ -4,6 +4,7 @@ import { useInterview } from '../hooks/useInterview.js'
 import { useNavigate } from 'react-router'
 import toast from 'react-hot-toast'
 import { HomeSkeleton } from '../../../components/SkeletonLoader'
+import InfoModal from '../../../components/InfoModal'
 
 const Home = () => {
 
@@ -13,6 +14,7 @@ const Home = () => {
     const [ selectedFile, setSelectedFile ] = useState(null)
     const [ isDragging, setIsDragging ] = useState(false)
     const [ errorMessage, setErrorMessage ] = useState("")
+    const [ activeModal, setActiveModal ] = useState(null)
     const resumeInputRef = useRef()
 
     const navigate = useNavigate()
@@ -252,10 +254,19 @@ const Home = () => {
 
             {/* Page Footer */}
             <footer className='page-footer'>
-                <a href='#'>Privacy Policy</a>
-                <a href='#'>Terms of Service</a>
-                <a href='#'>Help Center</a>
+                <button type="button" className="footer-link-btn" onClick={() => setActiveModal('privacy')}>
+                    Privacy Policy
+                </button>
+                <button type="button" className="footer-link-btn" onClick={() => setActiveModal('terms')}>
+                    Terms of Service
+                </button>
+                <button type="button" className="footer-link-btn" onClick={() => setActiveModal('help')}>
+                    Help Center
+                </button>
             </footer>
+
+            {/* Info Modals */}
+            <InfoModal type={activeModal} onClose={() => setActiveModal(null)} />
         </div>
     )
 }

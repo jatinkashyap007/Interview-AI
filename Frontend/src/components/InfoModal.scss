@@ -1,0 +1,198 @@
+.info-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: fadeIn 0.2s ease-out;
+
+  .info-modal-container {
+    width: 100%;
+    max-width: 620px;
+    max-height: 85vh;
+    background: #10151C;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 1rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: slideUp 0.25s ease-out;
+  }
+
+  .info-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: #151B24;
+
+    .header-title-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+
+      .modal-icon {
+        font-size: 1.2rem;
+      }
+
+      h2 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #F4F6F8;
+        margin: 0;
+      }
+    }
+
+    .modal-close-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #B7C0CC;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.15s, color 0.15s;
+
+      &:hover {
+        background: rgba(255, 59, 105, 0.2);
+        color: #FF3B69;
+        border-color: #FF3B69;
+      }
+    }
+  }
+
+  .info-modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    color: #B7C0CC;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+
+    .modal-section {
+      h3 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #F4F6F8;
+        margin: 0 0 0.4rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+
+      p {
+        margin: 0;
+        color: #B7C0CC;
+      }
+
+      ul {
+        margin: 0.4rem 0 0;
+        padding-left: 1.2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+    }
+
+    .faq-item {
+      background: #151B24;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 0.6rem;
+      padding: 0.85rem 1rem;
+
+      h4 {
+        color: #35E0C9;
+        font-size: 0.92rem;
+        font-weight: 600;
+        margin: 0 0 0.35rem;
+      }
+
+      p {
+        margin: 0;
+        font-size: 0.85rem;
+        color: #B7C0CC;
+      }
+    }
+
+    .contact-box {
+      background: rgba(255, 59, 105, 0.08);
+      border: 1px solid rgba(255, 59, 105, 0.2);
+      border-radius: 0.6rem;
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .contact-text {
+        font-size: 0.85rem;
+        color: #F4F6F8;
+      }
+
+      .contact-email {
+        color: #FF3B69;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 0.85rem;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .info-modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: #151B24;
+    display: flex;
+    justify-content: flex-end;
+
+    .btn-modal-close {
+      padding: 0.5rem 1.25rem;
+      background: #FF3B69;
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: opacity 0.15s;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
